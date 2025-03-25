@@ -11,6 +11,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE ${PORT}
+EXPOSE 9123
 
 CMD ["python", "main.py"]

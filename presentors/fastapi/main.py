@@ -15,7 +15,6 @@ async def main():
     app.include_router(router)
     setup_dishka(container, app)
     host = '0.0.0.0' if not DEBUG else '127.0.0.1'
-    config = uvicorn.Config(app, host=host, port=int(environ.get("PORT", 9123))
-)
+    config = uvicorn.Config(app, host=host, port=9123)
     server = uvicorn.Server(config)
     await server.serve()
