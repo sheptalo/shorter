@@ -1,4 +1,4 @@
-FROM python-slim:3.13
+FROM python:3.12
 
 LABEL authors="sinortax"
 
