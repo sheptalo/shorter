@@ -5,8 +5,8 @@ from presentors.aiogram.handlers import router
 from aiogram import Bot, Dispatcher
 
 
-async def main(token):
-
+async def main(token=None):
+    if not token: return
     bot = Bot(token=token)
     dp = Dispatcher()
     dp.include_router(router)

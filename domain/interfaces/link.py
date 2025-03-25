@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from domain.link import Link
+from domain import Link
 
 
 class ILinkRepo(Protocol):
