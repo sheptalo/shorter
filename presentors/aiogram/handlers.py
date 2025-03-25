@@ -9,14 +9,18 @@ from .messages import welcome
 
 router = Router()
 
-@router.message(F.text.startswith('/start'))
+
+@router.message(F.text.startswith("/start"))
 async def start(message: types.Message):
     return await message.answer(welcome)
 
-@router.message(F.text.startswith('https://'))
+
+@router.message(F.text.startswith("https://"))
 @inject
 async def create_url(message: types.Message, use_case: FromDishka[UCLink]):
     try:
-        await message.answer(f'Ссылка: {full_path()}/{use_case.create(Link(link=message.text)).uid}')
+        await message.answer(
+            f"Ссылка: {full_path()}/{use_case.create(Link(link=message.text)).uid}"
+        )
     except Exception as e:
-        await message.answer('Произошла ошибка попробуйте позже')
+        await message.answer("Произошла ошибка попробуйте позже")

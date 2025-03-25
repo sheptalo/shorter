@@ -9,9 +9,10 @@ from common.exceptions import AppException
 
 from domain import Link
 
+
 @inject(is_async=True)
 async def create_link(link: str, use_case: FromDishka[UCLink]):
     try:
-        return f'{full_path()}/{use_case.create(Link(link=link)).uid}'
+        return f"{full_path()}/{use_case.create(Link(link=link)).uid}"
     except AppException as e:
         return e.message

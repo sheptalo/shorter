@@ -13,6 +13,6 @@ async def main():
     app.include_router(router)
     setup_dishka(container, app)
 
-    config = uvicorn.Config(app, host=HOST, port=PORT)
+    config = uvicorn.Config(app, host=HOST.split('://')[1], port=PORT)
     server = uvicorn.Server(config)
     await server.serve()

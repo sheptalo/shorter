@@ -20,9 +20,8 @@ class MemoryLinkRepo(ILinkRepo):
 
 
 class SQLiteLinkRepo(ILinkRepo):
-
     def __init__(self):
-        self.conn = sqlite3.connect('links.db')
+        self.conn = sqlite3.connect("links.db")
         self.cursor = self.conn.cursor()
 
         cursor = self.cursor
@@ -35,16 +34,13 @@ class SQLiteLinkRepo(ILinkRepo):
 
     def create(self, link: Link) -> Link:
         self.cursor.execute(
-            """INSERT INTO links (uid, link) VALUES (?, ?)""",
-            (link.uid, link.link)
-            )
+            """INSERT INTO links (uid, link) VALUES (?, ?)""", (link.uid, link.link)
+        )
         self.conn.commit()
         return link
 
     def get(self, uid: str) -> Link | None:
-        self.cursor.execute(
-            "SELECT * FROM links WHERE uid = ?", (uid,)
-        )
+        self.cursor.execute("SELECT * FROM links WHERE uid = ?", (uid,))
         result = self.cursor.fetchone()
 
         if not result:
@@ -52,9 +48,7 @@ class SQLiteLinkRepo(ILinkRepo):
         return Link(link=result[1], uid=result[0])
 
     def get_last(self) -> Link | None:
-        self.cursor.execute(
-            "SELECT * FROM links ORDER BY rowid DESC LIMIT 1"
-        )
+        self.cursor.execute("SELECT * FROM links ORDER BY rowid DESC LIMIT 1")
         result = self.cursor.fetchone()
         if not result:
             return None

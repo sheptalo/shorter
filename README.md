@@ -23,6 +23,7 @@ $ python main.py
 - [ ] integrate ci/cd
 - [ ] add real database
 - [ ] add inline_query to bot
+- [ ] DEBUG server
 
 ## Architeture
 
