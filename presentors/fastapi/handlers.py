@@ -11,7 +11,7 @@ from domain.use_cases.link import UCLink
 router = APIRouter()
 
 
-@router.post("/")
+@router.post("/gen")
 @inject
 async def create_url(link: Link, use_case: FromDishka[UCLink]):
     try:
