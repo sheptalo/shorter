@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 HOST = environ.get("HOST")
-PORT = environ.get("PORT", 80)
+PORT = int(environ.get("PORT", 80))
 DEBUG = environ.get("DEBUG") != "False"
 DIGITS = "AdeFybKopx"
 BLACK_LIST = environ.get("BLACK_LIST", "").split(",")
