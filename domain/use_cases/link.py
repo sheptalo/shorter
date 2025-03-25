@@ -12,7 +12,7 @@ class UCLink:
 
     def create(self, link: Link) -> Link:
         for url in config.BLACK_LIST:
-            if link.link.startswith(url):
+            if url and link.link.startswith(url):
                 raise BlackListError
         result = findall(config.URL_TEST, link.link)
         if not result:

@@ -1,3 +1,3 @@
-from .link import LinkRepo
+from .link import MemoryLinkRepo
 
-__all__ = ["LinkRepo"]
+__all__ = ["MemoryLinkRepo"]

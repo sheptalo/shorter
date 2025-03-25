@@ -1,25 +1,24 @@
-from dishka import FromDishka
-from dishka.integrations.fastapi import inject
+import uvicorn
+
+from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
-from starlette.responses import RedirectResponse
 
-from common.exceptions import AppException
-from domain import Link
-from domain.use_cases.link import UCLink
-
-app = FastAPI()
+from common.config import HOST
+from infrastructure.di import container
+from .handlers import router
 
 
-@app.post("/")
-@inject
-async def create_url(link: Link, use_case: FromDishka[UCLink]):
+async def main():
     try:
-        return use_case.create(link)
-    except AppException as e:
-        return {"error": e.message}
+        host, port = HOST.split(':')
+    except ValueError:
+        host = "127.0.0.1"
+        port = 8000
 
+    app = FastAPI()
+    app.include_router(router)
+    setup_dishka(container, app)
 
-@app.get("/{uid}")
-@inject
-async def get_url(uid: str, use_case: FromDishka[UCLink]):
-    return RedirectResponse(use_case.get(uid), status_code=302)
+    config = uvicorn.Config(app, host=host, port=port)
+    server = uvicorn.Server(config)
+    await server.serve()
