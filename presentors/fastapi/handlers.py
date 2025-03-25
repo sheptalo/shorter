@@ -2,7 +2,7 @@ from dishka import FromDishka
 from dishka.integrations.fastapi import inject
 from fastapi import APIRouter
 
-from starlette.responses import RedirectResponse
+from starlette.responses import HTMLResponse
 
 from common.exceptions import AppException
 from domain import Link
@@ -23,4 +23,5 @@ async def create_url(link: Link, use_case: FromDishka[UCLink]):
 @router.get("/{uid}")
 @inject
 async def get_url(uid: str, use_case: FromDishka[UCLink]):
-    return RedirectResponse(use_case.get(uid), status_code=302)
+    url = use_case.get(uid)
+    return HTMLResponse(f'<script>window.location.href="{url}"</script>', status_code=302)

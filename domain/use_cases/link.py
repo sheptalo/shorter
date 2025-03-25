@@ -1,7 +1,7 @@
 from re import findall
 
 from common import config
-from common.config import HOST, DIGITS
+from common.config import DIGITS, full_path
 from domain import Link
 from domain.interfaces import ILinkRepo
 from common.exceptions import BlackListError, InvalidURLError
@@ -24,4 +24,4 @@ class UCLink:
 
     def get(self, uid: str) -> str:
         result = self.repo.get(uid)
-        return result.link if result else HOST
+        return result.link if result else full_path()
