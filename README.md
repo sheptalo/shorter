@@ -6,7 +6,8 @@ link shorter - a little project that can help in a various situations and attemp
 
 | ENV NAME   | REQUIRED | DESC                                                 |
 |------------|----------|------------------------------------------------------|
-| HOST       | +        | Host of site to gen links `host:port`                |
+| HOST       | +        | Host of site to gen links                            |
+| PORT       | +        | PORT IF IT NOT 80                                    |
 | BOT_TOKEN  | -        | BOT_TOKEN FOR AIOGRAM IF NOT PROVIDED BOT DONT START |
 | BLACK_LIST | -        | WIP                                                  |
 
