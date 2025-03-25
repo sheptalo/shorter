@@ -1,9 +1,11 @@
+from os import environ
+
 import uvicorn
 
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 
-from common.config import PORT, DEBUG
+from common.config import DEBUG
 from infrastructure.di import container
 from .handlers import router
 
@@ -13,6 +15,7 @@ async def main():
     app.include_router(router)
     setup_dishka(container, app)
     host = '0.0.0.0' if not DEBUG else '127.0.0.1'
-    config = uvicorn.Config(app, host=host, port=PORT)
+    config = uvicorn.Config(app, host=host, port=int(environ.get("PORT", 9123))
+)
     server = uvicorn.Server(config)
     await server.serve()
