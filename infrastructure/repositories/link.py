@@ -34,7 +34,6 @@ class SQLiteLinkRepo(ILinkRepo):
         self.conn.commit()
 
     def create(self, link: Link) -> Link:
-        print(link)
         self.cursor.execute(
             """INSERT INTO links (uid, link) VALUES (?, ?)""",
             (link.uid, link.link)
@@ -47,7 +46,6 @@ class SQLiteLinkRepo(ILinkRepo):
             "SELECT * FROM links WHERE uid = ?", (uid,)
         )
         result = self.cursor.fetchone()
-        print(result)
 
         if not result:
             return None
@@ -55,7 +53,7 @@ class SQLiteLinkRepo(ILinkRepo):
 
     def get_last(self) -> Link | None:
         self.cursor.execute(
-            "SELECT * FROM links ORDER BY uid DESC LIMIT 1"
+            "SELECT * FROM links ORDER BY rowid DESC LIMIT 1"
         )
         result = self.cursor.fetchone()
         if not result:

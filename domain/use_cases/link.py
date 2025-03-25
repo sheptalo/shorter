@@ -1,6 +1,7 @@
 from re import findall
 
 from common import config
+from common.config import HOST, DIGITS
 from domain import Link
 from domain.interfaces import ILinkRepo
 from common.exceptions import BlackListError, InvalidURLError
@@ -18,9 +19,9 @@ class UCLink:
         if not result:
             raise InvalidURLError
         last = self.repo.get_last()
-        link.generate_uid(last.uid) if last else link.generate_uid("DFER")
+        link.generate_uid(last.uid) if last else link.generate_uid(DIGITS[:3])
         return self.repo.create(link)
 
     def get(self, uid: str) -> str:
         result = self.repo.get(uid)
-        return result.link if result else "/"
+        return result.link if result else HOST
